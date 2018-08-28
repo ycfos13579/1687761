@@ -10,6 +10,17 @@ public class Parametres extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parametres);
-        Log.d("MonEtiquette","Bonjour");
+
+        String orientation;
+        if (this.getResources().getBoolean(R.bool.estPays)){
+            orientation = "paysage";
+        }else {
+            orientation = "protrait";
+        }
+
+        Log.d("MonEtiquette",this.getResources().getString(R.string.BONJOUR)+" "+orientation +"!" );
+
+
+        //Log.d("MonEtiquette","Bonjour");
     }
 }
