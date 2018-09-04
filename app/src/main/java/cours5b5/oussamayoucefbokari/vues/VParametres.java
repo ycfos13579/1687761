@@ -10,7 +10,7 @@ import android.widget.Spinner;
 import cours5b5.oussamayoucefbokari.R;
 import cours5b5.oussamayoucefbokari.global.GConstantes;
 
-public class VParametres extends ConstraintLayout {
+public class VParametres extends ConstraintLayout implements Vue{
 
     public VParametres(Context context) {
         super(context);
