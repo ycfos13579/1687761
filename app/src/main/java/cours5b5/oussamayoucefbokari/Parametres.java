@@ -6,6 +6,7 @@ import android.util.Log;
 
 public class Parametres extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {

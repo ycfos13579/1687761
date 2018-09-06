@@ -9,8 +9,15 @@ import android.view.View;
 import android.widget.Button;
 
 import cours5b5.oussamayoucefbokari.R;
+import cours5b5.oussamayoucefbokari.activites.AMenuPrincipal;
 
 public class VMenuPrincipal extends ConstraintLayout implements Vue  {
+
+    static {
+        Class metaDonnees = AMenuPrincipal.class;
+        Log.d("MonMsg", VMenuPrincipal.class.getSimpleName()+"::static");
+
+    }
 
 
 
@@ -26,4 +33,9 @@ public class VMenuPrincipal extends ConstraintLayout implements Vue  {
         super(context, attrs, defStyleAttr);
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        Log.d("MonMsg", this.getClass().getSimpleName()+"::onFinishInflate");
+    }
 }

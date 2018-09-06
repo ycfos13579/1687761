@@ -7,6 +7,11 @@ import android.util.Log;
 import cours5b5.oussamayoucefbokari.R;
 
 public class AParametres extends Activite {
+    static {
+        Class metaDonnees = AMenuPrincipal.class;
+        Log.d("MonMsg", AParametres.class.getSimpleName()+"::static");
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,7 @@ public class AParametres extends Activite {
             }
 
             Log.d("MonEtiquette",this.getResources().getString(R.string.BONJOUR)+" "+orientation +"!" );
+
 
 
         } catch (Exception e) {

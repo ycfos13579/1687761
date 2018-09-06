@@ -10,6 +10,12 @@ import cours5b5.oussamayoucefbokari.R;
 import cours5b5.oussamayoucefbokari.vues.VParametres;
 
 public class AMenuPrincipal extends Activite {
+
+    static {
+        Class metaDonnees = AMenuPrincipal.class;
+        Log.d("MonMsg", AMenuPrincipal.class.getSimpleName()+"::static");
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,17 +29,22 @@ public class AMenuPrincipal extends Activite {
         Button bParametres = this.findViewById(R.id.bouton_menu);
 
         bParametres.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View v) {
                 temp();
             }
         });
-
     }
+
+
 
     public void temp() {
 
         Intent mnIntn = new Intent(this, AParametres.class);
         this.startActivity(mnIntn);
     }
+
 }
+
+
+

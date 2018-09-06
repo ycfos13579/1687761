@@ -8,9 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import cours5b5.oussamayoucefbokari.R;
+import cours5b5.oussamayoucefbokari.activites.AMenuPrincipal;
 import cours5b5.oussamayoucefbokari.global.GConstantes;
 
 public class VParametres extends ConstraintLayout implements Vue{
+    static {
+        Class metaDonnees = AMenuPrincipal.class;
+        Log.d("MonMsg", VParametres.class.getSimpleName()+"::static");
+
+    }
 
     public VParametres(Context context) {
         super(context);
@@ -27,6 +33,8 @@ public class VParametres extends ConstraintLayout implements Vue{
     @Override
     protected void onFinishInflate(){
         super.onFinishInflate();
+
+        Log.d("MonMsg", this.getClass().getSimpleName()+"::onFinishInflate");
 
             Spinner spinHaut = this.findViewById(R.id.spinHaut);
             ArrayAdapter<Integer> adapter1 = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item);
