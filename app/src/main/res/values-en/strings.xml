@@ -4,6 +4,6 @@
     <string name="hauteur">Height</string>
     <string name="largeur">Width</string>
     <string name="gargner">To win</string>
-    <string name="bParametres">parameters</string>
+    <string name="parametres">parameters</string>
 
 </resources>

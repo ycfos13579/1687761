@@ -1,6 +1,8 @@
 package cours5b5.oussamayoucefbokari.activites;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -9,17 +11,29 @@ import cours5b5.oussamayoucefbokari.vues.VParametres;
 
 public class AMenuPrincipal extends Activite {
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parametres);
+        setContentView(R.layout.activity_menu);
+    }
 
-        Button boutParametres = this.findViewById(R.id.button);
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        boutParametres.setOnClickListener(new View.OnClickListener() {
+        Button bParametres = this.findViewById(R.id.bouton_menu);
+
+        bParametres.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                temp();
             }
         });
+
+    }
+
+    public void temp() {
+
+        Intent mnIntn = new Intent(this, AParametres.class);
+        this.startActivity(mnIntn);
     }
 }
