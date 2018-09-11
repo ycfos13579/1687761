@@ -34,4 +34,16 @@ public class AParametres extends Activite {
             Log.d("MonEtiquette",e.toString());
         }
     }
+    private void restaurerParametres(Bundle savedInstanceState){
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    private void sauvegarderParametres(Bundle outState){
+
+    }
 }

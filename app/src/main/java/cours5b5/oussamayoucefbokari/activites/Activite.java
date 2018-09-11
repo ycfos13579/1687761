@@ -6,9 +6,19 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.Map;
+
 import cours5b5.oussamayoucefbokari.R;
+import cours5b5.oussamayoucefbokari.modeles.MParametres;
+import cours5b5.oussamayoucefbokari.modeles.Modele;
+import cours5b5.oussamayoucefbokari.serialisation.Jsonification;
+
+import static cours5b5.oussamayoucefbokari.modeles.MParametres.instance;
 
 public abstract class Activite extends AppCompatActivity {
+
+    MParametres mParametres = new MParametres();
+
     static {
         Class metaDonnees = AMenuPrincipal.class;
 
@@ -24,7 +34,15 @@ public abstract class Activite extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
+        setContentView(R.layout.activity_parametres);
         //Log.d("MonMsg",this.getClass().getSimpleName()+"::onCreate");
+
+        if(savedInstanceState != null){
+            String json = savedInstanceState.getString("MaCle");
+            Map<String, Object> objetJson = Jsonification.enObjetJson(json);
+            instance.aPartirObjetJson(objetJson);
+        }
+
     }
 
     @Override
@@ -45,6 +63,11 @@ public abstract class Activite extends AppCompatActivity {
 
         Log.d("MonMsg", this.getClass().getSimpleName()+"::onSaveInstanceState");
         //outState.putString("","");
+
+        Map<String, Object> objetJson = mParametres.enObjetJson();
+        String json = Jsonification.enChaine(objetJson);
+        outState.putString("MaCle", json);
+
     }
 
     @Override

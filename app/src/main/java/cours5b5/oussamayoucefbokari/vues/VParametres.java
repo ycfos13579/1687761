@@ -12,6 +12,7 @@ import cours5b5.oussamayoucefbokari.activites.AMenuPrincipal;
 import cours5b5.oussamayoucefbokari.global.GConstantes;
 
 public class VParametres extends ConstraintLayout implements Vue{
+
     static {
         Class metaDonnees = AMenuPrincipal.class;
         Log.d("MonMsg", VParametres.class.getSimpleName()+"::static");
@@ -36,19 +37,19 @@ public class VParametres extends ConstraintLayout implements Vue{
 
         Log.d("MonMsg", this.getClass().getSimpleName()+"::onFinishInflate");
 
-            Spinner spinHaut = this.findViewById(R.id.spinHaut);
-            ArrayAdapter<Integer> adapter1 = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item);
-            spinHaut.setAdapter(adapter1);
+        Spinner spinHaut = this.findViewById(R.id.spinHaut);
+        ArrayAdapter<Integer> adapter1 = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item);
+        spinHaut.setAdapter(adapter1);
 
-            int haut_def = -1;
-            for (int i = GConstantes.HAUTEUR_MIN; i <= GConstantes.HAUTEUR_MAX; i++){
-                if (i == GConstantes.HAUTEUR_DEFAULT) {
-                    haut_def = adapter1.getCount();
-                }
-                adapter1.add(i);
+        int haut_def = -1;
+        for (int i = GConstantes.HAUTEUR_MIN; i <= GConstantes.HAUTEUR_MAX; i++){
+            if (i == GConstantes.HAUTEUR_DEFAULT) {
+                haut_def = adapter1.getCount();
             }
-            // GConstante.HAUTEUR_DEFAUT - GConstante.HAUTEUR_MIN
-            spinHaut.setSelection(haut_def);
+            adapter1.add(i);
+        }
+        // GConstante.HAUTEUR_DEFAUT - GConstante.HAUTEUR_MIN
+        spinHaut.setSelection(haut_def);
 
         Spinner spinLarge = this.findViewById(R.id.spinLarge);
         ArrayAdapter<Integer> adapter2 = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item);
@@ -77,8 +78,6 @@ public class VParametres extends ConstraintLayout implements Vue{
         }
 
         spinGagner.setSelection(gagne_def);
-
-
 
     }
 }
