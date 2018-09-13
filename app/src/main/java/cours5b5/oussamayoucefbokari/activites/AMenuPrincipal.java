@@ -41,7 +41,7 @@ public class AMenuPrincipal extends Activite {
     public void temp() {
 
         Intent mnIntn = new Intent(this, AParametres.class);
-        this.startActivity(mnIntn);
+        AMenuPrincipal.this.startActivity(mnIntn);
     }
 
 }

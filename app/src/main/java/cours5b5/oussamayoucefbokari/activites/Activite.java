@@ -40,7 +40,7 @@ public abstract class Activite extends AppCompatActivity {
         if(savedInstanceState != null){
             String json = savedInstanceState.getString("MaCle");
             Map<String, Object> objetJson = Jsonification.enObjetJson(json);
-            instance.aPartirObjetJson(objetJson);
+            mParametres.aPartirObjetJson(objetJson);
         }
 
     }

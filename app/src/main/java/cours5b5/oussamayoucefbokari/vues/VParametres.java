@@ -4,20 +4,27 @@ import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
 import cours5b5.oussamayoucefbokari.R;
 import cours5b5.oussamayoucefbokari.activites.AMenuPrincipal;
-import cours5b5.oussamayoucefbokari.global.GConstantes;
+import cours5b5.oussamayoucefbokari.modeles.MParametres;
 
-public class VParametres extends ConstraintLayout implements Vue{
+public class VParametres extends ConstraintLayout implements Vue, AdapterView.OnItemSelectedListener {
 
     static {
         Class metaDonnees = AMenuPrincipal.class;
         Log.d("MonMsg", VParametres.class.getSimpleName()+"::static");
 
     }
+    private ArrayAdapter<Integer> adapterHaut;
+    private ArrayAdapter<Integer> adapterLarg;
+    private ArrayAdapter<Integer> adapterGagner;
+    private Spinner spinnerHaut;
+    private Spinner spinnerLarg;
+    private Spinner spinnerGagner;
 
     public VParametres(Context context) {
         super(context);
@@ -37,47 +44,71 @@ public class VParametres extends ConstraintLayout implements Vue{
 
         Log.d("MonMsg", this.getClass().getSimpleName()+"::onFinishInflate");
 
-        Spinner spinHaut = this.findViewById(R.id.spinHaut);
-        ArrayAdapter<Integer> adapter1 = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item);
-        spinHaut.setAdapter(adapter1);
+        initialiseSpinners();
 
-        int haut_def = -1;
-        for (int i = GConstantes.HAUTEUR_MIN; i <= GConstantes.HAUTEUR_MAX; i++){
-            if (i == GConstantes.HAUTEUR_DEFAULT) {
-                haut_def = adapter1.getCount();
-            }
-            adapter1.add(i);
+        initialiseAdapteurs();
+
+        setAdapters();
+
+        remplirAdapters();
+
+        spinnersPosition();
+    }
+
+    private void initialiseAdapteurs() {
+        adapterHaut = new ArrayAdapter<>(getContext(),
+                R.layout.support_simple_spinner_dropdown_item);
+        adapterLarg = new ArrayAdapter<>(getContext(),
+                R.layout.support_simple_spinner_dropdown_item);
+        adapterGagner = new ArrayAdapter<>(getContext(),
+                R.layout.support_simple_spinner_dropdown_item);
+    }
+
+    private void initialiseSpinners() {
+        spinnerHaut = findViewById(R.id.spinHaut);
+        spinnerLarg = findViewById(R.id.spinLarge);
+        spinnerGagner = findViewById(R.id.spinGagner);
+
+        spinnerHaut.setOnItemSelectedListener(this);
+        spinnerLarg.setOnItemSelectedListener(this);
+        spinnerGagner.setOnItemSelectedListener(this);
+    }
+
+    private void setAdapters() {
+        spinnerHaut.setAdapter(adapterHaut);
+        spinnerLarg.setAdapter(adapterLarg);
+        spinnerGagner.setAdapter(adapterGagner);
+    }
+
+    private void remplirAdapters() {
+        adapterHaut.addAll(MParametres.instance.getChoixHauteur());
+        adapterLarg.addAll(MParametres.instance.getChoixLargeur());
+        adapterGagner.addAll(MParametres.instance.getChoixPourGagner());
+    }
+
+    private void spinnersPosition() {
+        spinnerHaut.setSelection(adapterHaut.getPosition(MParametres.instance.getHauteur()));
+        spinnerLarg.setSelection(adapterLarg.getPosition(MParametres.instance.getLargeur()));
+        spinnerGagner.setSelection(adapterGagner.getPosition(MParametres.instance.getPourGagner()));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Spinner spinner = (Spinner) parent;
+        Integer choix = (Integer)parent.getAdapter().getItem(parent.getSelectedItemPosition());
+
+        if(spinner.getId() == R.id.spinHaut) {
+            MParametres.instance.setHauteur(choix);
+        } else if(spinner.getId() == R.id.spinLarge) {
+            MParametres.instance.setLargeur(choix);
+        } else {
+            MParametres.instance.setPourGagner(choix);
         }
-        // GConstante.HAUTEUR_DEFAUT - GConstante.HAUTEUR_MIN
-        spinHaut.setSelection(haut_def);
+    }
 
-        Spinner spinLarge = this.findViewById(R.id.spinLarge);
-        ArrayAdapter<Integer> adapter2 = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item);
-        spinLarge.setAdapter(adapter2);
 
-        int larg_def = -1;
-        for (int i = GConstantes.LARGEUR_MIN; i <= GConstantes.LARGEUR_MAX; i++){
-            if (i == GConstantes.LARGEUR_DEFAULT) {
-                larg_def = adapter2.getCount();
-            }
-            adapter2.add(i);
-        }
-
-        spinLarge.setSelection(larg_def);
-
-        Spinner spinGagner = this.findViewById(R.id.spinGagner);
-        ArrayAdapter<Integer> adapter3 = new ArrayAdapter<>(this.getContext(), R.layout.support_simple_spinner_dropdown_item);
-        spinGagner.setAdapter(adapter3);
-
-        int gagne_def = -1;
-        for (int i = GConstantes.GAGNER_MIN; i <= GConstantes.GAGNER_MAX; i++){
-            if (i == GConstantes.GAGNER_DEFAULT) {
-                gagne_def = adapter3.getCount();
-            }
-            adapter3.add(i);
-        }
-
-        spinGagner.setSelection(gagne_def);
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }

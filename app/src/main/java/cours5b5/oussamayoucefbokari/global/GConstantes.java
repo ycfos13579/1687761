@@ -12,4 +12,6 @@ public class GConstantes {
     public static final int GAGNER_MIN=3;
     public static final int GAGNER_MAX=4;
     public static final int GAGNER_DEFAULT=4;
+    public static final String maCle = "MParametres";
+
 }
