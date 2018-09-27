@@ -11,8 +11,9 @@ import android.widget.Spinner;
 import cours5b5.oussamayoucefbokari.R;
 import cours5b5.oussamayoucefbokari.activites.AMenuPrincipal;
 import cours5b5.oussamayoucefbokari.modeles.MParametres;
+import cours5b5.oussamayoucefbokari.modeles.MParametresPartie;
 
-public class VParametres extends ConstraintLayout implements Vue, AdapterView.OnItemSelectedListener {
+public class VParametres extends Vue implements AdapterView.OnItemSelectedListener {
 
     static {
         Class metaDonnees = AMenuPrincipal.class;

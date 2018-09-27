@@ -3,6 +3,7 @@ package cours5b5.oussamayoucefbokari.modeles;
 import java.util.Map;
 
 import cours5b5.oussamayoucefbokari.exceptions.ErreurDeSerialisation;
+import cours5b5.oussamayoucefbokari.global.GConstantes;
 import cours5b5.oussamayoucefbokari.serialisation.AttributSerialisable;
 
 public class MParametresPartie extends Modele{
@@ -19,6 +20,11 @@ public class MParametresPartie extends Modele{
     public Integer pourGagner;
     private final String __pourGagner = "pourGagner";
 
+    public MParametresPartie(){
+        this.hauteur = MParametres.instance.getHauteur();
+        this.largeur = MParametres.instance.getLargeur();
+        this.pourGagner = MParametres.instance.getPourGagner();
+    }
     public static MParametresPartie aPartirMparametres (MParametres mParametres){
         MParametresPartie mParametresPartie = new MParametresPartie(mParametres.getHauteur(), mParametres.getHauteur(), mParametres.getPourGagner());
         return mParametresPartie;

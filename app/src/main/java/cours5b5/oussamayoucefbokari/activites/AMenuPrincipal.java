@@ -27,11 +27,18 @@ public class AMenuPrincipal extends Activite {
         super.onResume();
 
         Button bParametres = this.findViewById(R.id.bouton_menu);
-
+        Button bPartie = this.findViewById(R.id.bouton_jouer);
         bParametres.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 temp();
+            }
+        });
+
+        bPartie.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                temp2();
             }
         });
     }
@@ -41,6 +48,11 @@ public class AMenuPrincipal extends Activite {
     public void temp() {
 
         Intent mnIntn = new Intent(this, AParametres.class);
+        AMenuPrincipal.this.startActivity(mnIntn);
+    }
+    public void temp2() {
+
+        Intent mnIntn = new Intent(this, APartie.class);
         AMenuPrincipal.this.startActivity(mnIntn);
     }
 

@@ -6,12 +6,13 @@ import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 
 import cours5b5.oussamayoucefbokari.R;
 import cours5b5.oussamayoucefbokari.activites.AMenuPrincipal;
 
-public class VMenuPrincipal extends ConstraintLayout implements Vue  {
+public class VMenuPrincipal extends Vue  {
 
     static {
         Class metaDonnees = AMenuPrincipal.class;
@@ -37,5 +38,15 @@ public class VMenuPrincipal extends ConstraintLayout implements Vue  {
     protected void onFinishInflate() {
         super.onFinishInflate();
         Log.d("MonMsg", this.getClass().getSimpleName()+"::onFinishInflate");
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

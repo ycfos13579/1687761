@@ -4,5 +4,8 @@ import cours5b5.oussamayoucefbokari.modeles.Modele;
 
 public interface ListenerObservateur {
 
-    void reagirChangementAuModele(Modele modele);
+    public void reagirNouveauModele(Modele modele);
+
+    public abstract void reagirChangementAuModele(Modele modele);
+
 }
