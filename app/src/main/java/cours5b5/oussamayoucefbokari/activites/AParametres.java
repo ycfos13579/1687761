@@ -39,6 +39,7 @@ public class AParametres extends Activite {
     }
 
     @Override
+
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         this.sauvegarderParametres(outState);

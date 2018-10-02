@@ -7,6 +7,7 @@ import java.util.Map;
 
 import cours5b5.oussamayoucefbokari.R;
 import cours5b5.oussamayoucefbokari.global.GConstantes;
+import cours5b5.oussamayoucefbokari.modeles.MParametres;
 import cours5b5.oussamayoucefbokari.serialisation.Jsonification;
 
 public class APartie extends Activite{
@@ -18,6 +19,24 @@ public class APartie extends Activite{
         }
         setContentView(R.layout.activity_partie);
     }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        this.sauvegarderParametres(outState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     private void restaurerParametres(Bundle savedInstanceState){
         String json = savedInstanceState.getString(GConstantes.maCle);
 
@@ -25,8 +44,14 @@ public class APartie extends Activite{
 
         mParametres.aPartirObjetJson(objetJson);
 
-        //Log.d("Atelier05", this.getClass().getSimpleName() + "::restaurerParametres, " + "clé:" + GConstantes.maCle);
-        //Log.d("Atelier05", this.getClass().getSimpleName() + "::restaurerParametres, " + "json:\n" + json);
+    }
+    private void sauvegarderParametres(Bundle outState){
+        Map<String, Object> objetJson = MParametres.instance.enObjetJson();
+
+        String json = Jsonification.enChaine(objetJson);
+
+        outState.putString(GConstantes.maCle, json);
+
     }
 
 }

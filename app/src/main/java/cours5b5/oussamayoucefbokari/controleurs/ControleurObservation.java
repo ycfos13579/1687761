@@ -31,6 +31,9 @@ public class ControleurObservation {
          */
 
         observations.put(MParametres.instance, listenerObservateur);
+
+        partie = new MPartie(MParametres.instance.getParametresPartie().cloner());
+
         listenerObservateur.reagirNouveauModele(partie);
 
 

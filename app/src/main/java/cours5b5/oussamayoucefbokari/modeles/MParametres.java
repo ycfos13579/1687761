@@ -2,6 +2,7 @@ package cours5b5.oussamayoucefbokari.modeles;
 
 import android.util.Log;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,10 @@ public class MParametres extends Modele{
     }
 
     public static MParametres instance = new MParametres();
+
+    @AttributSerialisable
+    public MParametresPartie parametresPartie ;
+    private String __parametresPartie = "parametresPartie";
 
     private List<Integer> choixHauteur;
     private List<Integer> choixLargeur;
@@ -37,6 +42,7 @@ public class MParametres extends Modele{
     public MParametres() {
         genererListesDeChoix();
     }
+
     private void genererListesDeChoix() {
         genererListeChoixHauteur();
         genererListeChoixLargeur();
@@ -78,6 +84,11 @@ public class MParametres extends Modele{
 
     public List<Integer> getChoixPourGagner() {
         return choixPourGagner;
+    }
+
+    public MParametresPartie getParametresPartie() {
+
+        return parametresPartie;
     }
 
     public void setHauteur(Integer hauteur) {

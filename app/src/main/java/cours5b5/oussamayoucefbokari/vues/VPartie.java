@@ -50,8 +50,6 @@ public class VPartie extends Vue {
                 grille.creerGrille(hauteur, largeur);
 
 
-
-
             }
 
             @Override
