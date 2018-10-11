@@ -20,7 +20,7 @@ public class MParametres extends Modele{
     public static MParametres instance = new MParametres();
 
     @AttributSerialisable
-    public MParametresPartie parametresPartie ;
+    public MParametresPartie parametresPartie = new MParametresPartie();
     private String __parametresPartie = "parametresPartie";
 
     private List<Integer> choixHauteur;
@@ -88,7 +88,8 @@ public class MParametres extends Modele{
 
     public MParametresPartie getParametresPartie() {
 
-        return parametresPartie;
+
+        return this.parametresPartie;
     }
 
     public void setHauteur(Integer hauteur) {
@@ -117,21 +118,31 @@ public class MParametres extends Modele{
 
     @Override
     public void aPartirObjetJson(Map<String, Object> objetJson) {
-        for(Map.Entry<String, Object> entry: objetJson.entrySet()) {
-            String cle = entry.getKey();
 
-            if (cle.equals(__hauteur)) {
-                setHauteur(Integer.valueOf(((String)entry.getValue())));
-            } else  if (cle.equals(__largeur)) {
-                setLargeur(Integer.valueOf(((String)entry.getValue())));
-            } else {
-                setPourGagner(Integer.valueOf(((String)entry.getValue())));
+            for(Map.Entry<String, Object> entry: enObjetJson().entrySet()) {
+                String cle = entry.getKey();
+
+                if (cle.equals(__hauteur)) {
+                    setHauteur(Integer.valueOf(((String)entry.getValue())));
+                } else  if (cle.equals(__largeur)) {
+                    setLargeur(Integer.valueOf(((String)entry.getValue())));
+                } else {
+                    setPourGagner(Integer.valueOf(((String)entry.getValue())));
+                }
             }
-        }
+           /* if (cle.equals(__parametresPartie)) {
+
+                parametresPartie = new MParametresPartie();
+
+                parametresPartie.aPartirObjetJson((Map<String, Object>) entry.getValue());
+
+            }*/
+
     }
 
     @Override
     public Map<String, Object> enObjetJson() {
+
         Map<String, Object> objetJson = new HashMap<>();
 
         objetJson.put(__hauteur,getHauteur().toString());
@@ -139,6 +150,11 @@ public class MParametres extends Modele{
         objetJson.put(__pourGagner, getPourGagner().toString());
 
         return objetJson;
+
+
+
+        // objetJson.put(__parametresPartie, parametresPartie.enObjetJson());
+
     }
 
 }

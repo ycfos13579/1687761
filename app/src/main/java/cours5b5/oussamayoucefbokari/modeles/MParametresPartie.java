@@ -1,5 +1,6 @@
 package cours5b5.oussamayoucefbokari.modeles;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import cours5b5.oussamayoucefbokari.exceptions.ErreurDeSerialisation;
@@ -21,18 +22,22 @@ public class MParametresPartie extends Modele{
     private final String __pourGagner = "pourGagner";
 
     public MParametresPartie(){
-        this.hauteur = MParametres.instance.getHauteur();
+        this.setHauteur(GConstantes.HAUTEUR_DEFAULT);
+        this.setHauteur(GConstantes.LARGEUR_DEFAULT);
+        this.setPourGagner(GConstantes.GAGNER_DEFAULT);
+        /*this.hauteur = MParametres.instance.getHauteur();
         this.largeur = MParametres.instance.getLargeur();
-        this.pourGagner = MParametres.instance.getPourGagner();
-        cloner();
+        this.pourGagner = MParametres.instance.getPourGagner();*/
+
     }
     public MParametresPartie cloner(){
 
-        MParametresPartie parametresPartie = new MParametresPartie();
-        parametresPartie.setHauteur(this.hauteur);
+        MParametresPartie parametresPartie = new MParametresPartie(MParametres.instance.hauteur,MParametres.instance.largeur,MParametres.instance.pourGagner);
+
+        /*parametresPartie.setHauteur(this.hauteur);
         parametresPartie.setLargeur(this.largeur);
         parametresPartie.setPourGagner(this.pourGagner);
-
+    */
         return parametresPartie;
 
     }
@@ -71,10 +76,28 @@ public class MParametresPartie extends Modele{
     @Override
     public void aPartirObjetJson(Map<String, Object> objectJson) throws ErreurDeSerialisation {
 
+        for(Map.Entry<String, Object> entry: enObjetJson().entrySet()) {
+            String cle = entry.getKey();
+
+            if (cle.equals(__hauteur)) {
+                setHauteur(Integer.valueOf(((String)entry.getValue())));
+            } else  if (cle.equals(__largeur)) {
+                setLargeur(Integer.valueOf(((String)entry.getValue())));
+            } else {
+                setPourGagner(Integer.valueOf(((String)entry.getValue())));
+            }
+        }
+
     }
 
     @Override
     public Map<String, Object> enObjetJson() throws ErreurDeSerialisation{
-        return null;
+        Map<String, Object> objetJson = new HashMap<>();
+
+        objetJson.put(__hauteur,getHauteur().toString());
+        objetJson.put(__largeur, getLargeur().toString());
+        objetJson.put(__pourGagner, getPourGagner().toString());
+
+        return objetJson;
     }
 }
