@@ -17,5 +17,10 @@ public class Action {
 
     public void executerDesQuePossible(){
 
+        ControleurAction.executerDesQuePossible(this);
+
+    }
+    Action cloner(){
+        return null;
     }
 }

@@ -21,6 +21,18 @@ public class ControleurObservation {
 
     }
 
+    public static void lancerObservation(Modele modele){
+
+
+        ListenerObservateur observateur = observations.get(modele);
+
+        if(observateur != null){
+
+            observerModele(modele.toString(), observateur);
+        }
+
+
+    }
 
     public static void observerModele(String nomModele, final ListenerObservateur listenerObservateur){
 

@@ -10,6 +10,8 @@ import android.widget.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import cours5b5.oussamayoucefbokari.global.GCouleur;
+import cours5b5.oussamayoucefbokari.modeles.MGrille;
 import cours5b5.oussamayoucefbokari.modeles.MParametres;
 
 public class VGrille extends GridLayout {
@@ -27,6 +29,8 @@ public class VGrille extends GridLayout {
     }
 
     private int nombreRangees;
+
+    private VCase[][] lesCases;
 
     private class Colonne extends ArrayList<VCase>{
 
@@ -109,6 +113,25 @@ public class VGrille extends GridLayout {
         mesParams.leftMargin = 0;
 
         return mesParams;
+
+    }
+    private void initialiserTableauDeCases(int hauteur, int largeur){
+
+    }
+
+    private void demanderActionEntete(){
+
+    }
+
+    private void installerListenerEnTete(VEntete entete, final int colonne){
+
+    }
+
+    void afficherJetons(MGrille grille){
+
+    }
+
+    private void afficherJeton(int colonne, int rangee, GCouleur jeton){
 
     }
 
