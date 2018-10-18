@@ -46,6 +46,8 @@ public class VGrille extends GridLayout {
     @Override
     protected void onFinishInflate(){
         super.onFinishInflate();
+        Log.d("atelier07", "VGrille.onFinishInflate");
+
         this.creerGrille(MParametres.instance.getHauteur(), MParametres.instance.getLargeur());
     }
 

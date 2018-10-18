@@ -50,8 +50,6 @@ public class ControleurObservation {
     }
 
     public static void lancerObservation(Modele modele){
-
-
         ListenerObservateur observateur = observations.get(modele);
 
         if(observateur != null){

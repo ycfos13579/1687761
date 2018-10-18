@@ -35,8 +35,6 @@ public class ControleurAction {
     public static void fournirAction(Fournisseur fournisseur, GCommande commande, ListenerFournisseur listenerFournisseur){
         enregistrerFournisseur(fournisseur, commande, listenerFournisseur);
         executerActionExecutables();
-
-
     }
     static void executerDesQuePossible(Action action){
         Log.d("atelier07", "ControleurAction.executerDesQuePossible");
