@@ -31,7 +31,7 @@ public class ControleurObservation {
         if (nomModele.equals(MParametres.class.getSimpleName())){
             observations.put(MParametres.instance, listenerObservateur);
             lancerUneNOuvelleObservation(MParametres.instance);
-        }else if (nomModele.equals(MParametresPartie.class.getSimpleName())){
+        }else if (nomModele.equals(MPartie.class.getSimpleName())){
 
             partie = new MPartie(MParametres.instance.getParametresPartie().cloner());
             observations.put(partie, listenerObservateur);

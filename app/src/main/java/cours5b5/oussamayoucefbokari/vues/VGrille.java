@@ -58,12 +58,15 @@ public class VGrille extends GridLayout {
     }
 
     void creerGrille(int hauteur, int largeur){
+        initialiserColonnes(largeur);
         ajouterEnTetes(largeur);
         ajouterCases(hauteur, largeur);
 
     }
     private void initialiserColonnes(int largeur){
-
+        for (int i = 0; i < largeur; i++) {
+            colonnesDeCases.add(new Colonne());
+        }
     }
     private void ajouterEnTetes(int largeur){
 
@@ -98,7 +101,9 @@ public class VGrille extends GridLayout {
     private void ajouterCases(int hauteur, int largeur){
         for(int i=0;i<hauteur;i++) {
             for (int j=0; j<largeur;j++){
-                this.addView(new VCase(this.getContext(),j, i), getMiseEnPageCase(j, hauteur - i - 1));
+                VCase vCase = new VCase(this.getContext(),j, i);
+                colonnesDeCases.get(j).add(vCase);
+                this.addView(vCase, getMiseEnPageCase(j, hauteur - i - 1));
             }
         }
 
