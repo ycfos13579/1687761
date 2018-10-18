@@ -1,6 +1,7 @@
 package cours5b5.oussamayoucefbokari.vues;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 
@@ -24,7 +25,19 @@ public class VCase extends AppCompatButton{
         setText(colonne +", "+ rangee);
     }
 
-    private void afficherJeton(GCouleur jeton){
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        //findViewById();
+    }
 
+    public void afficherJeton(GCouleur jeton){
+        int couleur = Color.LTGRAY;
+        if (jeton == GCouleur.ROUGE) {
+            couleur = Color.RED;
+        } else if (jeton == GCouleur.JAUNE) {
+            couleur = Color.YELLOW;
+        }
+        this.setBackgroundColor(couleur);
     }
 }

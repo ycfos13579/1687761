@@ -4,13 +4,17 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.GridLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cours5b5.oussamayoucefbokari.controleurs.Action;
+import cours5b5.oussamayoucefbokari.controleurs.ControleurAction;
+import cours5b5.oussamayoucefbokari.global.GCommande;
 import cours5b5.oussamayoucefbokari.global.GCouleur;
+import cours5b5.oussamayoucefbokari.modeles.MColonne;
 import cours5b5.oussamayoucefbokari.modeles.MGrille;
 import cours5b5.oussamayoucefbokari.modeles.MParametres;
 
@@ -62,8 +66,11 @@ public class VGrille extends GridLayout {
     private void ajouterEnTetes(int largeur){
 
         for(int i=0;i<largeur;i++) {
-            this.addView(new VEntete(this.getContext(), i), getMiseEnPageEntete(i));
+            VEntete vEntete = new VEntete(this.getContext(), i);
+            this.addView(vEntete, getMiseEnPageEntete(i));
+            installerListenerEnTete(vEntete, i);
         }
+
     }
     private LayoutParams getMiseEnPageEntete(int colonne){
         int rangee = 0;
@@ -119,20 +126,42 @@ public class VGrille extends GridLayout {
 
     }
 
-    private void demanderActionEntete(){
+    private Action demanderActionEntete(){
 
+        Log.d("atelier07", "JOUER_COUP_ICI");
+        return ControleurAction.demanderAction(GCommande.JOUER_COUP_ICI);
     }
 
     private void installerListenerEnTete(VEntete entete, final int colonne){
+        Log.d("atelier07", "Listener pour chaque bouton en-tete");
+        entete.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("atelier07", "VGrille$1.onClick");
+                Action action = demanderActionEntete();
+                Log.d("atelier07", "Colonne est l'argument de l'action.");
+
+                action.setArguments(colonne);
+                Log.d("atelier07", "On execute l'action");
+                action.executerDesQuePossible();
+            }
+        });
 
     }
 
     void afficherJetons(MGrille grille){
 
+        List<MColonne> colonnes = grille.getColonnes();
+        for (int i = 0; i < colonnes.size(); i++) {
+            for (int j = 0; j < colonnes.get(i).getJetons().size(); j++) {
+                afficherJeton(i, j, colonnes.get(i).getJetons().get(j));
+            }
+        }
+
     }
 
     private void afficherJeton(int colonne, int rangee, GCouleur jeton){
-
+        colonnesDeCases.get(colonne).get(rangee).afficherJeton(jeton);
     }
 
 }

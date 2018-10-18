@@ -1,5 +1,6 @@
 package cours5b5.oussamayoucefbokari.modeles;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,16 +12,16 @@ public class MColonne extends Modele{
     private List<GCouleur> jetons;
 
     public MColonne(){
-
+        jetons = new ArrayList<>();
     }
 
-    private List<GCouleur> getJetons(){
+    public List<GCouleur> getJetons(){
 
-        return null;
+        return jetons;
     }
 
     public void placerJeton(GCouleur couleur){
-
+        jetons.add(couleur);
     }
 
     @Override
@@ -32,5 +33,4 @@ public class MColonne extends Modele{
     public Map<String, Object> enObjetJson() throws ErreurDeSerialisation{
         return null;
     }
-
 }

@@ -1,6 +1,9 @@
 package cours5b5.oussamayoucefbokari.controleurs;
 
+import android.util.Log;
+
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,43 +20,41 @@ public class ControleurAction {
     private static Set<Action> fileAttenteExecution;
 
     static {
-        Action actionHauteur = ControleurAction.demanderAction(GCommande.CHOISIR_HAUTEUR);
-        Action actionLargeur = ControleurAction.demanderAction(GCommande.CHOISIR_LARGEUR);
-        Action actionPourGagner = ControleurAction.demanderAction(GCommande.CHOISIR_POUR_GAGNER);
+        fileAttenteExecution = new LinkedHashSet<>();
         actions = new HashMap<>();
+        for (GCommande commande: GCommande.values()) {
+            actions.put(commande, new Action());
+        }
 
     }
 
     public static Action demanderAction(GCommande commande){
 
-        return null;
+        return actions.get(commande);
     }
     public static void fournirAction(Fournisseur fournisseur, GCommande commande, ListenerFournisseur listenerFournisseur){
+        enregistrerFournisseur(fournisseur, commande, listenerFournisseur);
+        executerActionExecutables();
+
 
     }
     static void executerDesQuePossible(Action action){
+        Log.d("atelier07", "ControleurAction.executerDesQuePossible");
+        ajouterActionEnFileDAttente(action);
+        executerActionExecutables();
 
-        Action actionHauteur = ControleurAction.demanderAction(GCommande.CHOISIR_HAUTEUR);
-
-        // Une fois qu'on connais le choix de l'usager
-        actionHauteur.setArguments(MParametres.instance.getChoixHauteur());
-        actionHauteur.executerDesQuePossible();
-
-        Action actionLargeur = ControleurAction.demanderAction(GCommande.CHOISIR_LARGEUR);
-
-        // Une fois qu'on connais le choix de l'usager
-        actionLargeur.setArguments(MParametres.instance.getChoixLargeur());
-        actionLargeur.executerDesQuePossible();
-
-        Action actionPourGagner = ControleurAction.demanderAction(GCommande.CHOISIR_POUR_GAGNER);
-
-        // Une fois qu'on connais le choix de l'usager
-        actionPourGagner.setArguments(MParametres.instance.getChoixPourGagner());
-        actionPourGagner.executerDesQuePossible();
     }
 
     private static void executerActionExecutables(){
 
+        Log.d("atelier07", "ControleurAction.executerActionsExecutables");
+        for (Action action : fileAttenteExecution) {
+            if (siActionExecutable(action)){
+                fileAttenteExecution.remove(action);
+                executerMaintenant(action);
+                lancerObservationSiApplicable(action);
+            }
+        }
     }
 
     static boolean siActionExecutable(Action action){
@@ -68,8 +69,8 @@ public class ControleurAction {
 
 
     private static synchronized void executerMaintenant(Action action){
-
-        action.listenerFournisseur.executer();
+        Log.d("atelier07", "ControleurAction.executerMaintenant");
+        action.listenerFournisseur.executer(action.args);
     }
 
     private static void lancerObservationSiApplicable(Action action){
@@ -89,6 +90,7 @@ public class ControleurAction {
     }
 
     private static void ajouterActionEnFileDAttente(Action action){
-        action.cloner();
+
+        fileAttenteExecution.add(action.cloner());
     }
 }

@@ -23,7 +23,7 @@ public class MParametresPartie extends Modele{
 
     public MParametresPartie(){
         this.setHauteur(GConstantes.HAUTEUR_DEFAULT);
-        this.setHauteur(GConstantes.LARGEUR_DEFAULT);
+        this.setLargeur(GConstantes.LARGEUR_DEFAULT);
         this.setPourGagner(GConstantes.GAGNER_DEFAULT);
         /*this.hauteur = MParametres.instance.getHauteur();
         this.largeur = MParametres.instance.getLargeur();

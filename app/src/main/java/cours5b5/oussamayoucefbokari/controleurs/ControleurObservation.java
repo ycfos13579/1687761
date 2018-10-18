@@ -15,22 +15,9 @@ public class ControleurObservation {
 
     private static Map<Modele, ListenerObservateur> observations = new HashMap<>();
 
-    private static MPartie partie = new MPartie(new MParametresPartie());
+    public static MPartie partie;
 
     static {
-
-    }
-
-    public static void lancerObservation(Modele modele){
-
-
-        ListenerObservateur observateur = observations.get(modele);
-
-        if(observateur != null){
-
-            observerModele(modele.toString(), observateur);
-        }
-
 
     }
 
@@ -41,15 +28,36 @@ public class ControleurObservation {
          *   - on lance l'observation une première fois quand on reçoit le listener
          *
          */
+        if (nomModele.equals(MParametres.class.getSimpleName())){
+            observations.put(MParametres.instance, listenerObservateur);
+            lancerUneNOuvelleObservation(MParametres.instance);
+        }else if (nomModele.equals(MParametresPartie.class.getSimpleName())){
 
-        observations.put(MParametres.instance, listenerObservateur);
+            partie = new MPartie(MParametres.instance.getParametresPartie().cloner());
+            observations.put(partie, listenerObservateur);
+           //listenerObservateur.reagirNouveauModele(partie);
+            lancerUneNOuvelleObservation(partie);
+        }
+    }
 
-        partie = new MPartie(MParametres.instance.getParametresPartie().cloner());
+    public static void lancerUneNOuvelleObservation(Modele modele){
+        ListenerObservateur listenerObservateur = observations.get(modele);
 
-        listenerObservateur.reagirNouveauModele(partie);
+        if (listenerObservateur != null) {
+
+            listenerObservateur.reagirNouveauModele(modele);
+        }
+    }
+
+    public static void lancerObservation(Modele modele){
 
 
+        ListenerObservateur observateur = observations.get(modele);
 
+        if(observateur != null){
+
+            observateur.reagirChangementAuModele(modele);
+        }
 
 
     }
@@ -57,8 +65,7 @@ public class ControleurObservation {
 
 
 
-
-    }
+}
 
 
 
