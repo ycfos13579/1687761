@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="BONJOUR">BONJOUR</string>
-    <string name="hauteur">Hauteur</string>
-    <string name="largeur">Largeur</string>
-    <string name="gargner">Pour gagner</string>
-    <string name="parametres">Paramètres</string>
-</resources>
