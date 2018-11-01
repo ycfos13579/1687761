@@ -24,6 +24,14 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
         List<AuthUI.IdpConfig> fournisseursDeConnexion = new ArrayList<>();
 
     @Override
+    protected void initialiserApplication() {
+        super.initialiserApplication();
+        fournisseursDeConnexion.add(new AuthUI.IdpConfig.GoogleBuilder().build());
+        fournisseursDeConnexion.add(new AuthUI.IdpConfig.EmailBuilder().build());
+        fournisseursDeConnexion.add(new AuthUI.IdpConfig.PhoneBuilder().build());
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
@@ -97,10 +105,6 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
     }
     private void connexion(){
 
-        fournisseursDeConnexion.add(new AuthUI.IdpConfig.GoogleBuilder().build());
-        fournisseursDeConnexion.add(new AuthUI.IdpConfig.EmailBuilder().build());
-        fournisseursDeConnexion.add(new AuthUI.IdpConfig.PhoneBuilder().build());
-
         Intent intentionConnexion = AuthUI.getInstance().createSignInIntentBuilder()
                                         .setAvailableProviders(fournisseursDeConnexion).build();
         this.startActivityForResult(intentionConnexion, CONST_CONNEXION);
@@ -109,14 +113,11 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
     @Override
     protected void onActivityResult(int requestCode, int resulCode, Intent data){
 
-        boolean connexion = false;
-
         if (requestCode == CONST_CONNEXION){
             if (resulCode == RESULT_OK){
-                connexion = true;
                 Log.d("atelier11", "Connexion réussie");
             }else{
-                connexion = false;
+
             }
         }
     }

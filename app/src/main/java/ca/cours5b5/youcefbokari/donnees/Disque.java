@@ -2,6 +2,8 @@ package ca.cours5b5.youcefbokari.donnees;
 
 import android.util.Log;
 
+import com.firebase.ui.auth.data.model.User;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,6 +13,7 @@ import java.nio.file.Files;
 import java.util.Map;
 
 import ca.cours5b5.youcefbokari.global.GConstantes;
+import ca.cours5b5.youcefbokari.modeles.Modele;
 import ca.cours5b5.youcefbokari.serialisation.Jsonification;
 
 public final class Disque extends SourceDeDonnees {
@@ -35,6 +38,7 @@ public final class Disque extends SourceDeDonnees {
     public Map<String, Object> chargerModele(String cheminSauvegarde) {
 
         File fichier = getFichier(cheminSauvegarde);
+        String nomModel = Modele.class.getSimpleName();
 
         try {
 
@@ -80,9 +84,9 @@ public final class Disque extends SourceDeDonnees {
     }
 
 
-    private File getFichier(String nomModele) {
+    private File getFichier(String cheminSauvegarde) {
 
-        String nomFichier = getNomFichier(nomModele);
+        String nomFichier = getNomFichier(super.getNomModele(cheminSauvegarde));
 
         return new File(repertoireRacine, nomFichier);
 

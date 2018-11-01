@@ -1,11 +1,14 @@
 package ca.cours5b5.youcefbokari.controleurs;
 
+import com.firebase.ui.auth.data.model.User;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import ca.cours5b5.youcefbokari.controleurs.interfaces.Fournisseur;
+import ca.cours5b5.youcefbokari.donnees.Serveur;
 import ca.cours5b5.youcefbokari.donnees.SourceDeDonnees;
 import ca.cours5b5.youcefbokari.exceptions.ErreurModele;
 import ca.cours5b5.youcefbokari.modeles.MParametres;
@@ -13,6 +16,7 @@ import ca.cours5b5.youcefbokari.modeles.MParametresPartie;
 import ca.cours5b5.youcefbokari.modeles.MPartie;
 import ca.cours5b5.youcefbokari.modeles.Modele;
 import ca.cours5b5.youcefbokari.donnees.Disque;
+import ca.cours5b5.youcefbokari.usagers.UsagerCourant;
 
 public final class ControleurModeles {
 
@@ -30,6 +34,7 @@ public final class ControleurModeles {
 
         listeDeSauvegardes = new ArrayList<>();
         listeDeSauvegardes.add(Disque.getInstance());
+        listeDeSauvegardes.add(Serveur.getInstance());
 
     }
 
@@ -134,6 +139,11 @@ public final class ControleurModeles {
 
             }
         }
+    }
+
+    private static String getCheminSauvegarde(String nomModele){
+
+        return nomModele+"/"+ UsagerCourant.getId();
     }
 
 }

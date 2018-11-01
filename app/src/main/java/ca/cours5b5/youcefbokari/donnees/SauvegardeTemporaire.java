@@ -5,6 +5,7 @@ import android.os.Bundle;
 import java.util.Map;
 
 
+import ca.cours5b5.youcefbokari.modeles.Modele;
 import ca.cours5b5.youcefbokari.serialisation.Jsonification;
 
 public class SauvegardeTemporaire extends SourceDeDonnees {
@@ -18,7 +19,7 @@ public class SauvegardeTemporaire extends SourceDeDonnees {
     @Override
     public Map<String, Object> chargerModele(String cheminSauvegarde) {
 
-        if(bundle != null && bundle.containsKey(cheminSauvegarde)){
+        if(bundle != null && bundle.containsKey(getCle(cheminSauvegarde))){
 
             String json = bundle.getString(cheminSauvegarde);
 
@@ -38,9 +39,14 @@ public class SauvegardeTemporaire extends SourceDeDonnees {
         if(bundle != null){
 
             String json = Jsonification.enChaineJson(objetJson);
-            bundle.putString(cheminSauvegarde, json);
+            bundle.putString(getCle(cheminSauvegarde), json);
 
         }
+    }
+
+    private String getCle(String cheminSauvegarde){
+
+        return getNomModele(cheminSauvegarde);
     }
 
 }
