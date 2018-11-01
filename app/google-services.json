@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "787002557681",
+    "firebase_url": "https://oussamayoucefbokarirecup.firebaseio.com",
+    "project_id": "oussamayoucefbokarirecup",
+    "storage_bucket": "oussamayoucefbokarirecup.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787002557681:android:f920278236883a94",
+        "android_client_info": {
+          "package_name": "ca.cours5b5.youcefbokari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787002557681-orlbi114j7100uev57d1nvpgbne0et10.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.cours5b5.youcefbokari",
+            "certificate_hash": "c828c2f71ff91044bf0442215affd04956ea1f35"
+          }
+        },
+        {
+          "client_id": "787002557681-82rvijrevu5ces4mfcnquo03hb6oh5a3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH3jiyE6Iks76E18O0cKPMNDn8Su4fLfo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787002557681-82rvijrevu5ces4mfcnquo03hb6oh5a3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
