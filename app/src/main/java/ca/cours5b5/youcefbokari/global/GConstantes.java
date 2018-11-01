@@ -16,5 +16,6 @@ public final class GConstantes {
     public static final int POUR_GAGNER_PAR_DEFAUT = 4;
 
     public static final String EXTENSION_PAR_DEFAUT=".json";
+    public static final int CONST_CONNEXION= 123;
 
 }

@@ -1,7 +1,14 @@
 package ca.cours5b5.youcefbokari.activites;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.firebase.ui.auth.AuthUI;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ca.cours5b5.youcefbokari.R;
 import ca.cours5b5.youcefbokari.controleurs.ControleurAction;
@@ -9,7 +16,12 @@ import ca.cours5b5.youcefbokari.controleurs.interfaces.Fournisseur;
 import ca.cours5b5.youcefbokari.controleurs.interfaces.ListenerFournisseur;
 import ca.cours5b5.youcefbokari.global.GCommande;
 
+import static ca.cours5b5.youcefbokari.global.GConstantes.CONST_CONNEXION;
+
 public class AMenuPrincipal extends Activite implements Fournisseur {
+
+
+        List<AuthUI.IdpConfig> fournisseursDeConnexion = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +37,21 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
         fournirActionOuvrirMenuParametres();
 
         fournirActionDemarrerPartie();
+
+        fournirActionConnexion();
+    }
+    private void fournirActionConnexion(){
+        ControleurAction.fournirAction(this,
+                GCommande.OUVRIR_CONNEXION,
+                new ListenerFournisseur() {
+                    @Override
+                    public void executer(Object... args) {
+
+                        connexion();
+
+                    }
+                });
+
     }
 
     private void fournirActionOuvrirMenuParametres() {
@@ -68,5 +95,31 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
         startActivity(intentionParametres);
 
     }
+    private void connexion(){
+
+        fournisseursDeConnexion.add(new AuthUI.IdpConfig.GoogleBuilder().build());
+        fournisseursDeConnexion.add(new AuthUI.IdpConfig.EmailBuilder().build());
+        fournisseursDeConnexion.add(new AuthUI.IdpConfig.PhoneBuilder().build());
+
+        Intent intentionConnexion = AuthUI.getInstance().createSignInIntentBuilder()
+                                        .setAvailableProviders(fournisseursDeConnexion).build();
+        this.startActivityForResult(intentionConnexion, CONST_CONNEXION);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resulCode, Intent data){
+
+        boolean connexion = false;
+
+        if (requestCode == CONST_CONNEXION){
+            if (resulCode == RESULT_OK){
+                connexion = true;
+                Log.d("atelier11", "Connexion réussie");
+            }else{
+                connexion = false;
+            }
+        }
+    }
+
 
 }
