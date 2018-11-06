@@ -17,7 +17,7 @@ public class SauvegardeTemporaire extends SourceDeDonnees {
     }
 
     @Override
-    public Map<String, Object> chargerModele(String cheminSauvegarde) {
+    public Map<String, Object> chargerModele(String cheminSauvegarde, final ListenerChargement listenerChargement) {
 
         if(bundle != null && bundle.containsKey(getCle(cheminSauvegarde))){
 

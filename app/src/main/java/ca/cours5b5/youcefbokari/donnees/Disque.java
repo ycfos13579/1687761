@@ -35,7 +35,7 @@ public final class Disque extends SourceDeDonnees {
     }
 
     @Override
-    public Map<String, Object> chargerModele(String cheminSauvegarde) {
+    public void chargerModele(String cheminSauvegarde, final ListenerChargement listenerChargement) {
 
         File fichier = getFichier(cheminSauvegarde);
         String nomModel = Modele.class.getSimpleName();
@@ -46,15 +46,15 @@ public final class Disque extends SourceDeDonnees {
 
             Map<String, Object> objetJson = Jsonification.aPartirChaineJson(json);
 
-            return objetJson;
+            listenerChargement.reagirSucces(objetJson);
 
         } catch (FileNotFoundException e) {
 
-            return null;
+            listenerChargement.reagirErreur(e);
 
         } catch (IOException e) {
 
-            return null;
+            listenerChargement.reagirErreur(e);
 
         }
     }
