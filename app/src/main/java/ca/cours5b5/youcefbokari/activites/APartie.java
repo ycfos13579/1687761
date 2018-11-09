@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import ca.cours5b5.youcefbokari.R;
 import ca.cours5b5.youcefbokari.controleurs.ControleurModeles;
+import ca.cours5b5.youcefbokari.controleurs.ControleurObservation;
 import ca.cours5b5.youcefbokari.donnees.SauvegardeTemporaire;
 import ca.cours5b5.youcefbokari.modeles.MParametres;
 import ca.cours5b5.youcefbokari.modeles.MPartie;

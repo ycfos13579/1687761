@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.File;
 import java.util.Map;
 
+import ca.cours5b5.youcefbokari.exceptions.ErreurSerialisation;
 import ca.cours5b5.youcefbokari.modeles.Modele;
 
 import static java.lang.System.err;
@@ -35,7 +36,7 @@ public class Serveur extends SourceDeDonnees{
     }
 
     @Override
-    public Map<String, Object> chargerModele(String cheminSauvegarde, final ListenerChargement listenerChargement){
+    public void chargerModele(final String cheminSauvegarde, final ListenerChargement listenerChargement){
 
 
         String chemin = cheminSauvegarde;
@@ -46,19 +47,20 @@ public class Serveur extends SourceDeDonnees{
                 if(dataSnapshot.exists()){
                     Map<String, Object> objectJson = (Map<String, Object>) dataSnapshot.getValue();
 
-                    Log.d("atelier12", "Données lues");
+                    listenerChargement.reagirSucces(objectJson);
                 }else {
-                    Log.d("atelier12", "Pas de données dans ce noeud");
+                    listenerChargement.reagirErreur(new ErreurSerialisation("Erreur de chargement"));
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("atelier12", "Serveur.databaseError");
+                listenerChargement.reagirErreur(databaseError.toException());
+
             }
         });
 
-        return null;
+
     }
 
     @Override

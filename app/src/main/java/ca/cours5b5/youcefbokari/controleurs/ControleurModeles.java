@@ -1,3 +1,5 @@
+package ca.cours5b5.youcefbokari.controleurs;
+
 
 import com.firebase.ui.auth.data.model.User;
 
@@ -6,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ca.cours5b5.youcefbokari.controleurs.ControleurAction;
+import ca.cours5b5.youcefbokari.controleurs.ControleurObservation;
 import ca.cours5b5.youcefbokari.controleurs.interfaces.Fournisseur;
 import ca.cours5b5.youcefbokari.controleurs.interfaces.ListenerGetModele;
 import ca.cours5b5.youcefbokari.donnees.ListenerChargement;
@@ -58,7 +62,7 @@ public final class ControleurModeles {
         }
     }
 
-    static void getModele(final String nomModele, ListenerGetModele listenerGetModele){
+    static void getModele(final String nomModele, final ListenerGetModele listenerGetModele){
 
         Modele modele = modelesEnMemoire.get(nomModele);
 
@@ -69,18 +73,10 @@ public final class ControleurModeles {
                 @Override
                 public void reagirAuModele(Modele modele) {
 
-                    chargerDonnees(modele, nomModele, new ListenerGetModele() {
-                        @Override
-                        public void reagirAuModele(Modele modele) {
-
-                            modelesEnMemoire.put(nomModele, modele);
-
-                            listenerGetModele.reagirAuModele(modele);
-
-                        }
-                    });
+                    listenerGetModele.reagirAuModele(modele);
 
                 }
+
             });
 
         } else {
@@ -171,7 +167,33 @@ public final class ControleurModeles {
         }
     }
 
-    private static void creerModeleEtChargerDonnes(final String nomModele, final ListenerGetModele listnerGetModele){}
+    private static void creerModeleEtChargerDonnes(final String nomModele, final ListenerGetModele listenerGetModele){
+
+        creerModeleSelonNom(nomModele, new ListenerGetModele() {
+
+            @Override
+            public void reagirAuModele(Modele modele) {
+
+                modelesEnMemoire.put(nomModele, modele);
+
+                chargerDonnees(modele, nomModele, new ListenerGetModele() {
+
+                    @Override
+                    public void reagirAuModele(Modele modele) {
+
+                        listenerGetModele.reagirAuModele(modele);
+
+                    }
+
+                });
+
+                listenerGetModele.reagirAuModele(modele);
+
+            }
+
+        });
+
+    }
 
     private static void chargerDonnees(Modele modele,
                                        String nomModele,
@@ -190,7 +212,6 @@ public final class ControleurModeles {
             chargemenetViaSourceCouranteOuSuivante(modele, cheminDeSauvegarde, listnerGetModele, indiceSourceCourante);
         }
 
-
     }
 
     private static void chargemenetViaSourceCouranteOuSuivante(final Modele modele,
@@ -201,11 +222,13 @@ public final class ControleurModeles {
         sequenceDeChargement[indiceSourceCourante].chargerModele(cheminDeSauvegarde, new ListenerChargement() {
             @Override
             public void reagirSucces(Map<String, Object> objetJson) {
+                terminerChargementAvecDonnees(objetJson, modele, listenerGetModele);
 
             }
 
             @Override
             public void reagirErreur(Exception e) {
+                chargementViaSourceSuivante(modele, cheminDeSauvegarde, listenerGetModele, indiceSourceCourante);
 
             }
         });
@@ -213,16 +236,22 @@ public final class ControleurModeles {
 
     private static void terminerChargementAvecDonnees(Map<String, Object> objectJson, Modele modele, ListenerGetModele listenerGetModele){
 
+        modele.aPartirObjetJson(objectJson);
+
+        terminerChargement(modele, listenerGetModele);
+
     }
 
     private static void terminerChargement (Modele modele, ListenerGetModele listenerGetModele){
 
+        listenerGetModele.reagirAuModele(modele);
     }
 
     private static void chargementViaSourceSuivante(Modele modele,
                                                     String cheminDeSauvegarde,
                                                     ListenerGetModele listenerGetModele,
                                                     int indiceSourceCourante){
+        chargementViaSequence(modele, cheminDeSauvegarde, listenerGetModele, indiceSourceCourante + 1);
 
     }
     public static void detruireModele(String nomModele) {
