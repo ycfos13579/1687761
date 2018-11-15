@@ -5,6 +5,7 @@ import android.os.Bundle;
 import java.util.Map;
 
 
+import ca.cours5b5.youcefbokari.exceptions.ErreurModele;
 import ca.cours5b5.youcefbokari.modeles.Modele;
 import ca.cours5b5.youcefbokari.serialisation.Jsonification;
 
@@ -25,7 +26,11 @@ public class SauvegardeTemporaire extends SourceDeDonnees {
 
             Map<String, Object> objetJson = Jsonification.aPartirChaineJson(json);
 
+            listenerChargement.reagirSucces(objetJson);
+
         }else{
+
+            listenerChargement.reagirErreur(new ErreurModele("le chargement a partir de la sauveTemp a échoué"));
 
         }
     }

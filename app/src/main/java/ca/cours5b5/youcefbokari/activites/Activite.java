@@ -25,10 +25,10 @@ public abstract class Activite extends AppCompatActivity {
 
         ControleurModeles.setSequenceDeChargement(
                 new SauvegardeTemporaire(savedInstanceState),
+                Serveur.getInstance(),
                 Disque.getInstance());
-        ControleurModeles.setSequenceDeChargement(
-                new SauvegardeTemporaire(savedInstanceState),
-                Serveur.getInstance());
+
+
         
     }
 
@@ -42,8 +42,28 @@ public abstract class Activite extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        ControleurModeles.sauvegarderModeleDansCetteSource(MParametres.class.getSimpleName(),
-                new SauvegardeTemporaire(outState));
+        /*ControleurModeles.sauvegarderModeleDansCetteSource(MParametres.class.getSimpleName(),
+                new SauvegardeTemporaire(outState));*/
+    }
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
     }
 
 }

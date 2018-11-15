@@ -13,6 +13,7 @@ import java.util.Map;
 
 import ca.cours5b5.youcefbokari.exceptions.ErreurSerialisation;
 import ca.cours5b5.youcefbokari.modeles.Modele;
+import ca.cours5b5.youcefbokari.usagers.UsagerCourant;
 
 import static java.lang.System.err;
 
@@ -22,9 +23,11 @@ public class Serveur extends SourceDeDonnees{
 
     }
 
+    private static final Serveur instance = new Serveur();
+
     public static Serveur getInstance(){
 
-        return new Serveur();
+        return instance;
     }
 
     @Override
@@ -36,31 +39,36 @@ public class Serveur extends SourceDeDonnees{
     }
 
     @Override
-    public void chargerModele(final String cheminSauvegarde, final ListenerChargement listenerChargement){
+    public void chargerModele(final String cheminSauvegarde, final ListenerChargement listenerChargement) {
+        Log.d("atelier12", "Serveur.chargerModele");
+        if (UsagerCourant.siUsagerConnecte()) {
 
+            String chemin = cheminSauvegarde;
+            DatabaseReference noeud = FirebaseDatabase.getInstance().getReference(chemin);
+            noeud.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Map<String, Object> objectJson = (Map<String, Object>) dataSnapshot.getValue();
 
-        String chemin = cheminSauvegarde;
-        DatabaseReference noeud = FirebaseDatabase.getInstance().getReference(chemin);
-        noeud.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    Map<String, Object> objectJson = (Map<String, Object>) dataSnapshot.getValue();
-
-                    listenerChargement.reagirSucces(objectJson);
-                }else {
-                    listenerChargement.reagirErreur(new ErreurSerialisation("Erreur de chargement"));
+                        listenerChargement.reagirSucces(objectJson);
+                    } else {
+                        listenerChargement.reagirErreur(new ErreurSerialisation("Erreur de chargement"));
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                listenerChargement.reagirErreur(databaseError.toException());
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    listenerChargement.reagirErreur(databaseError.toException());
 
-            }
-        });
+                }
+            });
 
+        }else {
 
+            listenerChargement.reagirErreur(new ErreurSerialisation("Erreur de chargement"));
+
+        }
     }
 
     @Override

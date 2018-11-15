@@ -1,6 +1,8 @@
 package ca.cours5b5.youcefbokari.controleurs;
 
 
+import android.util.Log;
+
 import com.firebase.ui.auth.data.model.User;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import ca.cours5b5.youcefbokari.donnees.ListenerChargement;
 import ca.cours5b5.youcefbokari.donnees.Serveur;
 import ca.cours5b5.youcefbokari.donnees.SourceDeDonnees;
 import ca.cours5b5.youcefbokari.exceptions.ErreurModele;
+import ca.cours5b5.youcefbokari.global.GLog;
 import ca.cours5b5.youcefbokari.modeles.MParametres;
 import ca.cours5b5.youcefbokari.modeles.MParametresPartie;
 import ca.cours5b5.youcefbokari.modeles.MPartie;
@@ -38,8 +41,9 @@ public final class ControleurModeles {
         modelesEnMemoire = new HashMap<>();
 
         listeDeSauvegardes = new ArrayList<>();
-        listeDeSauvegardes.add(Disque.getInstance());
         listeDeSauvegardes.add(Serveur.getInstance());
+        listeDeSauvegardes.add(Disque.getInstance());
+
 
     }
 
@@ -51,13 +55,15 @@ public final class ControleurModeles {
 
     public static void sauvegarderModeleDansCetteSource(String nomModele, SourceDeDonnees sourceDeDonnees) {
 
+        Log.d("atelier12", nomModele + " : " + sourceDeDonnees);
+
         Modele modele = modelesEnMemoire.get(nomModele);
 
         if(modele != null){
 
             Map<String, Object> objetJson = modele.enObjetJson();
 
-            sourceDeDonnees.sauvegarderModele(nomModele, objetJson);
+            sourceDeDonnees.sauvegarderModele(getCheminSauvegarde(nomModele), objetJson);
 
         }
     }
@@ -68,7 +74,6 @@ public final class ControleurModeles {
 
         if(modele == null){
 
-            //modele =  chargerViaSequenceDeChargement(nomModele);
             creerModeleEtChargerDonnes(nomModele, new ListenerGetModele() {
                 @Override
                 public void reagirAuModele(Modele modele) {
@@ -127,6 +132,8 @@ public final class ControleurModeles {
 
     public static void sauvegarderModele(String nomModele) throws ErreurModele {
 
+        Log.d("atelier12", nomModele);
+
         for(SourceDeDonnees source : listeDeSauvegardes){
 
             sauvegarderModeleDansCetteSource(nomModele, source);
@@ -141,7 +148,7 @@ public final class ControleurModeles {
         if(nomModele.equals(MParametres.class.getSimpleName())){
 
             listenerGetModele.reagirAuModele(new MParametres());
-
+            Log.d("atelier12", "CreerModeleSelonNom1");
 
         }else if(nomModele.equals(MPartie.class.getSimpleName())){
 
@@ -152,10 +159,10 @@ public final class ControleurModeles {
                     MParametres mParametres = (MParametres)  modele;
 
 
-                    MPartie mPartie = new MPartie(mParametres.getParametresPartie().cloner());
+                    MPartie mPartie = new MPartie(mParametres.getParametresPartie());
 
                     listenerGetModele.reagirAuModele(mPartie);
-
+                    Log.d("atelier12", "CreerModeleSelonNom");
                 }
             });
 
@@ -168,7 +175,7 @@ public final class ControleurModeles {
     }
 
     private static void creerModeleEtChargerDonnes(final String nomModele, final ListenerGetModele listenerGetModele){
-
+        Log.d("atelier12", "CreerModeleEtChargerDonnées");
         creerModeleSelonNom(nomModele, new ListenerGetModele() {
 
             @Override
@@ -198,6 +205,9 @@ public final class ControleurModeles {
     private static void chargerDonnees(Modele modele,
                                        String nomModele,
                                        ListenerGetModele listenerGetModele) {
+
+        GLog.donnees(modele, nomModele);
+
         chargementViaSequence(modele, getCheminSauvegarde(nomModele), listenerGetModele, 0);
     }
 
@@ -205,8 +215,9 @@ public final class ControleurModeles {
                                               String cheminDeSauvegarde,
                                               ListenerGetModele listnerGetModele,
                                               int indiceSourceCourante){
+        Log.d("atelier12", "ChargementViaSequences");
 
-        if(indiceSourceCourante>= sequenceDeChargement.length){
+        if(indiceSourceCourante == sequenceDeChargement.length){
             terminerChargement(modele, listnerGetModele);
         }else{
             chargemenetViaSourceCouranteOuSuivante(modele, cheminDeSauvegarde, listnerGetModele, indiceSourceCourante);
@@ -222,19 +233,27 @@ public final class ControleurModeles {
         sequenceDeChargement[indiceSourceCourante].chargerModele(cheminDeSauvegarde, new ListenerChargement() {
             @Override
             public void reagirSucces(Map<String, Object> objetJson) {
+
+                GLog.donnees("Success", modele, cheminDeSauvegarde, indiceSourceCourante, sequenceDeChargement[indiceSourceCourante]);
+
                 terminerChargementAvecDonnees(objetJson, modele, listenerGetModele);
 
             }
 
             @Override
             public void reagirErreur(Exception e) {
-                chargementViaSourceSuivante(modele, cheminDeSauvegarde, listenerGetModele, indiceSourceCourante);
 
+                GLog.donnees("Erreur", modele, cheminDeSauvegarde, indiceSourceCourante, sequenceDeChargement[indiceSourceCourante], e.getMessage());
+
+                e.printStackTrace();
+
+                chargementViaSourceSuivante(modele, cheminDeSauvegarde, listenerGetModele, indiceSourceCourante);
             }
         });
     }
 
     private static void terminerChargementAvecDonnees(Map<String, Object> objectJson, Modele modele, ListenerGetModele listenerGetModele){
+        Log.d("atelier12", "terminerCahargement");
 
         modele.aPartirObjetJson(objectJson);
 
@@ -243,6 +262,9 @@ public final class ControleurModeles {
     }
 
     private static void terminerChargement (Modele modele, ListenerGetModele listenerGetModele){
+        Log.d("atelier12", "terminerChargement");
+
+        GLog.donnees(modele);
 
         listenerGetModele.reagirAuModele(modele);
     }
@@ -252,17 +274,17 @@ public final class ControleurModeles {
                                                     ListenerGetModele listenerGetModele,
                                                     int indiceSourceCourante){
         chargementViaSequence(modele, cheminDeSauvegarde, listenerGetModele, indiceSourceCourante + 1);
+        Log.d("atelier12", "ChargementViaSourceSuivante");
 
     }
     public static void detruireModele(String nomModele) {
-
+        Log.d("atelier12", "detruireModele");
         Modele modele = modelesEnMemoire.get(nomModele);
 
         if(modele != null){
+            ControleurObservation.detruireObservation(modele);
 
             modelesEnMemoire.remove(nomModele);
-
-            ControleurObservation.detruireObservation(modele);
 
             if(modele instanceof Fournisseur){
 
