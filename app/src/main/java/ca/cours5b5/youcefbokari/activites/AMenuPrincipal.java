@@ -122,5 +122,11 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
         }
     }
 
+    private void fournirActionJoindreOuCreerPartiereseau(){
+
+    }
+    private void transitionPartieReseau(){
+        
+    }
 
 }
