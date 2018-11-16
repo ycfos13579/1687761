@@ -47,7 +47,9 @@ public class VPartie extends Vue {
 
     private void observerPartie() {
 
-        ControleurObservation.observerModele(MPartie.class.getSimpleName(),
+
+
+        ControleurObservation.observerModele(getNomModele(),
                 new ListenerObservateur() {
                     @Override
                     public void reagirNouveauModele(Modele modele) {
@@ -97,6 +99,11 @@ public class VPartie extends Vue {
 
         grille.afficherJetons(partie.getGrille());
 
+    }
+
+    protected String getNomModele(){
+
+        return MPartie.class.getSimpleName();
     }
 
 }
