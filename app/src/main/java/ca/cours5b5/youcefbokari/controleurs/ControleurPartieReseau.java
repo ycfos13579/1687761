@@ -5,6 +5,7 @@ import ca.cours5b5.youcefbokari.controleurs.interfaces.ListenerGetModele;
 import ca.cours5b5.youcefbokari.donnees.Serveur;
 import ca.cours5b5.youcefbokari.global.GCommande;
 import ca.cours5b5.youcefbokari.global.GConstantes;
+import ca.cours5b5.youcefbokari.global.GLog;
 import ca.cours5b5.youcefbokari.modeles.MPartieReseau;
 import ca.cours5b5.youcefbokari.modeles.Modele;
 import ca.cours5b5.youcefbokari.proxy.ProxyListe;
@@ -39,6 +40,9 @@ public final class ControleurPartieReseau {
 
         String cheminHote = getCheminCoupsJoueurHote(idJouerHote);
         String cheminInvite = getCheminCoupsJoueurInvite(idJouerHote);
+
+        GLog.activite("se connecte au reseau avec ", UsagerCourant.getId(), cheminHote, cheminInvite);
+
         if (UsagerCourant.getId().equals(idJouerHote)) {
             connecterEnTantQueJoueurHote(cheminHote, cheminInvite);
         } else {

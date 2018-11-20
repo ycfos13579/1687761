@@ -21,6 +21,10 @@ public class APartieReseau extends Activite implements Fournisseur{
     protected void onResume()
     {
         super.onResume();
+        ControleurPartieReseau.getInstance().connecterAuServeur();
+
+
+
 
     }
 

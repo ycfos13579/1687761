@@ -22,7 +22,7 @@ public class SauvegardeTemporaire extends SourceDeDonnees {
 
         if(bundle != null && bundle.containsKey(getCle(cheminSauvegarde))){
 
-            String json = bundle.getString(cheminSauvegarde);
+            String json = bundle.getString(getCle(cheminSauvegarde));
 
             Map<String, Object> objetJson = Jsonification.aPartirChaineJson(json);
 

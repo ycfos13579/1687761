@@ -25,5 +25,5 @@ public final class GConstantes {
     public static final String CLE_COUPS_JOUEUR_HOTE="coupsJoueurHote";
     public static final String CLE_COUPS_JOUEUR_INVITE="coupsJoueurInvite";
 
-    public static final String FIXME_JSON_PARTIE_RESEAU = "{\"listeCoups\":[],\"parametres\":{\"largeur\":\"7\",\"pourGagner\":\"4\",\"hauteur\":\"6\"},\"idJoueurInvite\":\"PHMRKe3q7zOhfQQOwemjtfBFNp12\",\"idJoueurHote\":\"T1m8GxiBAlhLUcF6Ne0GV06nnEg1\"}";
+    public static final String FIXME_JSON_PARTIE_RESEAU = "{\"listeCoups\":[],\"parametres\":{\"largeur\":\"7\",\"pourGagner\":\"4\",\"hauteur\":\"6\"},\"idJoueurInvite\":\"gvzUFAuyrcVMkGvkofoolWOfUEv2\",\"idJoueurHote\":\"oGX3ifX9LbRIwURTSKKb5WtwhCh2\"}";
 }
