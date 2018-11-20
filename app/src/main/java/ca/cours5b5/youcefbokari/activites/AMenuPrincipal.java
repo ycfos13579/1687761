@@ -15,6 +15,8 @@ import ca.cours5b5.youcefbokari.controleurs.ControleurAction;
 import ca.cours5b5.youcefbokari.controleurs.interfaces.Fournisseur;
 import ca.cours5b5.youcefbokari.controleurs.interfaces.ListenerFournisseur;
 import ca.cours5b5.youcefbokari.global.GCommande;
+import ca.cours5b5.youcefbokari.global.GConstantes;
+import ca.cours5b5.youcefbokari.modeles.MPartieReseau;
 
 import static ca.cours5b5.youcefbokari.global.GConstantes.CONST_CONNEXION;
 
@@ -47,7 +49,28 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
         fournirActionDemarrerPartie();
 
         fournirActionConnexion();
+
+        fournirActionJoindreOuCreerPartieReseau();
+
     }
+
+    private void fournirActionJoindreOuCreerPartieReseau() {
+        ControleurAction.fournirAction(this,
+                GCommande.JOINDRE_OU_CREER_PARTIE_RESEAU,
+                new ListenerFournisseur() {
+                    @Override
+                    public void executer(Object... args) {
+                        transitionPartieReseau();
+                    }
+                });
+    }
+
+    private void transitionPartieReseau() {
+        Intent intentionPartieReseau = new Intent(this, APartieReseau.class);
+        intentionPartieReseau.putExtra(MPartieReseau.class.getSimpleName(), GConstantes.FIXME_JSON_PARTIE_RESEAU);
+        startActivity(intentionPartieReseau);
+    }
+
     private void fournirActionConnexion(){
         ControleurAction.fournirAction(this,
                 GCommande.OUVRIR_CONNEXION,
@@ -117,16 +140,9 @@ public class AMenuPrincipal extends Activite implements Fournisseur {
             if (resulCode == RESULT_OK){
                 Log.d("atelier11", "Connexion réussie");
             }else{
-
+                Log.d("atelier11", "Connexion échouée");
             }
         }
-    }
-
-    private void fournirActionJoindreOuCreerPartiereseau(){
-
-    }
-    private void transitionPartieReseau(){
-        
     }
 
 }

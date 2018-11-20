@@ -19,9 +19,11 @@ import ca.cours5b5.youcefbokari.donnees.Serveur;
 import ca.cours5b5.youcefbokari.donnees.SourceDeDonnees;
 import ca.cours5b5.youcefbokari.exceptions.ErreurModele;
 import ca.cours5b5.youcefbokari.global.GLog;
+import ca.cours5b5.youcefbokari.modeles.Identifiable;
 import ca.cours5b5.youcefbokari.modeles.MParametres;
 import ca.cours5b5.youcefbokari.modeles.MParametresPartie;
 import ca.cours5b5.youcefbokari.modeles.MPartie;
+import ca.cours5b5.youcefbokari.modeles.MPartieReseau;
 import ca.cours5b5.youcefbokari.modeles.Modele;
 import ca.cours5b5.youcefbokari.donnees.Disque;
 import ca.cours5b5.youcefbokari.usagers.UsagerCourant;
@@ -167,6 +169,18 @@ public final class ControleurModeles {
             });
 
 
+        }else if (nomModele.equals(MPartieReseau.class.getSimpleName())) {
+
+            getModele(MParametres.class.getSimpleName(), new ListenerGetModele() {
+                @Override
+                public void reagirAuModele(Modele modele) {
+                    MParametres mParametres = (MParametres) modele;
+                    MPartieReseau mPartieReseau = new MPartieReseau(mParametres.getParametresPartie().cloner());
+                    listenerGetModele.reagirAuModele(mPartieReseau);
+
+                }
+            });
+
         }else{
 
             throw new ErreurModele("Modèle inconnu: " + nomModele);
@@ -243,9 +257,9 @@ public final class ControleurModeles {
             @Override
             public void reagirErreur(Exception e) {
 
-                GLog.donnees("Erreur", modele, cheminDeSauvegarde, indiceSourceCourante, sequenceDeChargement[indiceSourceCourante], e.getMessage());
+                //GLog.donnees("Erreur", modele, cheminDeSauvegarde, indiceSourceCourante, sequenceDeChargement[indiceSourceCourante], e.getMessage());
 
-                e.printStackTrace();
+                //e.printStackTrace();
 
                 chargementViaSourceSuivante(modele, cheminDeSauvegarde, listenerGetModele, indiceSourceCourante);
             }
@@ -296,7 +310,14 @@ public final class ControleurModeles {
 
     private static String getCheminSauvegarde(String nomModele){
 
-        return nomModele+"/"+ UsagerCourant.getId();
+        Modele modele = modelesEnMemoire.get(nomModele);
+        String cheminSauvegarde;
+        if(modele instanceof Identifiable) {
+            cheminSauvegarde = nomModele + "/" + ((Identifiable) modele).getId();
+        } else {
+            cheminSauvegarde = nomModele + "/" + UsagerCourant.getId();
+        }
+        return cheminSauvegarde;
     }
 
 }

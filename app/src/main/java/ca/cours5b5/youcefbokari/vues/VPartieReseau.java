@@ -3,6 +3,8 @@ package ca.cours5b5.youcefbokari.vues;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import ca.cours5b5.youcefbokari.modeles.MPartieReseau;
+
 public class VPartieReseau extends VPartie {
     public VPartieReseau(Context context) {
         super(context);
@@ -19,6 +21,6 @@ public class VPartieReseau extends VPartie {
     @Override
     protected String getNomModele(){
 
-        return null;
+        return MPartieReseau.class.getSimpleName();
     }
 }
