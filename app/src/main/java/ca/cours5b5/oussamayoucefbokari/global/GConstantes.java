@@ -32,4 +32,6 @@ public final class GConstantes {
 
     public static final int DELAIS_MESSAGE_AVEC_ACTION=2000;
 
+    public static final String FIXME_JSON_PARTIE_RESEAU = "{\"listeCoups\":[],\"parametres\":{\"largeur\":\"7\",\"pourGagner\":\"4\",\"hauteur\":\"6\"},\"idJoueurInvite\":\"41BsV6g1fZV4zRqUvnpNq2KzeVk1\",\"idJoueurHote\":\"WOtxqttmdSOPGzctUpYuCrJdli33\"}";
+
 }

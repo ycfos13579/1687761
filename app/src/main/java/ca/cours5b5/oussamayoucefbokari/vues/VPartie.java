@@ -106,7 +106,7 @@ public class VPartie extends Vue {
                 new ListenerObservateur() {
                     @Override
                     public void reagirNouveauModele(Modele modele) {
-
+                    Log.d("test", "observerPartie");
                         MPartie partie = getPartie(modele);
                         MParametresPartie parametresPartie = partie.getParametres();
 

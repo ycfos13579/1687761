@@ -1,6 +1,7 @@
 package ca.cours5b5.oussamayoucefbokari.controleurs;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -148,6 +149,8 @@ public final class ControleurModeles {
                                                               final ListenerGetModele listenerGetModele,
                                                               final int indiceSourceCourante) {
 
+        Log.d("teste", modele.getClass().getSimpleName() + " | " + cheminDeSauvegarde);
+
         SourceDeDonnees sourceCourante = sequenceDeChargement[indiceSourceCourante];
 
         sourceCourante.chargerModele(cheminDeSauvegarde,
@@ -155,6 +158,8 @@ public final class ControleurModeles {
 
                     @Override
                     public void reagirSucces(final Map<String, Object> objetJson) {
+
+                        Log.d("teste", "" + modele.getClass().getSimpleName() + " | " + cheminDeSauvegarde);
 
                         terminerChargementAvecDonnees(objetJson, modele, listenerGetModele);
                     }
