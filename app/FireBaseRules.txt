@@ -1,0 +1,50 @@
+{
+  "rules": {
+    "MParametres":{
+      "$uid":{
+         ".read":  "$uid ===auth.uid",
+    		 ".write":  "$uid ===auth.uid"
+      }
+    },"MPartie":{
+      	"$uid":{
+          ".read":  "$uid ===auth.uid",
+    		  ".write":  "$uid ===auth.uid"
+      }
+    },"JoueursEnAttente":{
+      	".read":  "auth != null",
+    		".write":  "auth != null"
+    },"MPartieReseau":{
+      "$uid":{
+        "coupsJoueurHote": {
+          
+          
+          
+        }, 
+        "coupsJoueurInvite": {
+          
+          
+          
+        },
+      
+        "idJoueurHote" : {
+          
+        },
+        "parametre": {
+          
+          
+        },
+        	".read":  "$uid === auth.uid || ",
+    			".write":  "$uid === auth.uid",
+            
+        	"coupsJoueurInvite":{
+            ".read":  "$uid === auth.uid || ",
+          	".write":  "$uid != auth.uid"
+        	}
+          
+        
+      }
+    },
+    ".read":  "auth != null",
+    ".write":  "auth != null"
+  }
+}
