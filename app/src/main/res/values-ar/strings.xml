@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="bonjour">مرحبا!</string>
+    <string name="paysage">افقيا</string>
+
+    <string name="hauteur"> </string>
+    <string name="largeur">العرض </string>
+    <string name="pour_gagner">للفوز </string>
+
+    <string name="parametres">إعدادات </string>
+
+    <string name="jouer">العب</string>
+    <string name="jouer_enligne">العب على الانترنت</string>
+
+
+    <string name="joueur1">لاعب ١</string>
+    <string name="joueur2">لاعب ٢</string>
+
+    <string name="connexion">دخول</string>
+    <string name="deconnexion">خروج</string>
+
+    <string name="effacer_partie_courante">احذف اللعبة الحالي</string>
+
+    <string name="en_attente_adversaire">انتظار الخصم...</string>
+
+    <string name="message_au_gagnant"> @@فاز!</string>
+
+    <string name="ROUGE">احمر</string>
+    <string name="JAUNE">اصفر</string>
+
+
+</resources>
